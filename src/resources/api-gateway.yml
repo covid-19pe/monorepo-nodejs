@@ -1,0 +1,20 @@
+Resources:
+  ApiGatewayRestApi:
+    Type: AWS::ApiGateway::RestApiId
+    Properties:
+      Name: ${file(../../package.json):name}-${self:provider.stage}-ApiGatewayRestApi
+
+Outputs:
+  ApiGatewayRestApiId:
+    Value:
+      Ref: ApiGatewayRestApi
+    Export:
+      Name: ApiGatewayRestApi
+
+  ApiGatewayRestApiRootResourceId:
+    Value:
+      Fn::GetAtt:
+        - ApiGatewayRestApi
+        - RootResourceId
+    Export:
+      Name: ApiGatewayRestApiRootResourceId
