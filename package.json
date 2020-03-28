@@ -5,7 +5,7 @@
     "description": "",
     "main": "handler.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start:local:resources": "lerna run --concurrency 1 start --scope resources -- --stage local"
     },
     "repository": {
         "type": "git",
@@ -18,8 +18,11 @@
         "url": "https://github.com/tengo-sintomas/monorepo-nodejs/issues"
     },
     "homepage": "https://github.com/tengo-sintomas/monorepo-nodejs#readme",
-    "dependencies": {
-        "axios": "^0.19.2",
-        "serverless-offline": "^6.1.0"
+    "workspaces": [
+        "src/modules/*",
+        "src/resources"
+    ],
+    "devDependencies": {
+        "lerna": "^3.20.2"
     }
 }

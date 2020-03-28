@@ -1,0 +1,15 @@
+{
+    "name": "resources",
+    "description": "Resources service",
+    "authors": "Yefri laura, Alexander Huayama",
+    "version": "0.0.1",
+    "scripts": {
+        "deploy": "serverless deploy",
+        "start": "sls offline start"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^0.19.2",
+        "serverless-offline": "^6.1.0"
+    }
+}

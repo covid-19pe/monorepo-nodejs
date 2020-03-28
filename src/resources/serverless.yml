@@ -21,18 +21,20 @@ service: resources
 # frameworkVersion: "=X.X.X"
 
 custom:
+  name: resources
   serverless-offline:
-    port: 4000
+    httpPort: 4000
+
 
 provider:
   name: aws
   runtime: nodejs12.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  environment:
+    API_DNI_TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InllZnJpb3NjYXI5ODE0QGdtYWlsLmNvbSJ9.JViUp355LIb0ax7C8U-PpPkHbKFTGJ3_rcsliRDhALg
+    API_DNI_URL: https://dniruc.apisperu.com/api/v1/dni
 
-resources:
-  - ${file(./api-gateway.yml)}
-
-plugins:
-  - serverless-offline
 
 # you can overwrite defaults here
 #  stage: dev
@@ -132,3 +134,9 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+resources:
+  - ${file(./api-gateway.yml)}
+
+plugins:
+  - serverless-offline

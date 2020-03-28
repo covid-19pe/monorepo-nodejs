@@ -3,28 +3,12 @@
 const axios = require("axios");
 const https = require("https");
 
-module.exports.hello = async event => {
-    return {
-        statusCode: 200,
-        body: JSON.stringify(
-            {
-                message:
-                    "Go Serverless v1.0! Your function executed successfully!",
-                input: event
-            },
-            null,
-            2
-        )
-    };
-
-    // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-    // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-};
-
 module.exports.verifiedDni = async event => {
+
     const payload = JSON.parse(event.body);
-    const token = process.env.API_TOKEN;
-    const endPointApi = "https://dniruc.apisperu.com/api/v1/dni";
+    const token = process.env.API_DNI_TOKEN;
+    const endPointApi = process.env.API_DNI_URL;
+    ;
     const filterKeys = ["dni", "verificationCode"];
 
     let normalizeResponse = null;
@@ -36,10 +20,13 @@ module.exports.verifiedDni = async event => {
         })
     });
 
+    console.log(token);
     try {
         const { data } = await instance.get(
             `${endPointApi}/${payload.dni}?token=${token}`
         );
+
+        console.log(data)
 
         normalizeResponse = {
             dni: data.dni,

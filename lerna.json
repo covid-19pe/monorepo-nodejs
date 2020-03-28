@@ -1,0 +1,6 @@
+{
+	"version": "23.2.0",
+	"npmClient": "yarn",
+	"useWorkspaces": true,
+	"packages": ["src/modules/*", "src/resources"]
+}
