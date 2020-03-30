@@ -116,3 +116,13 @@ module.exports.getProvinces = async (event) => {
     body: JSON.stringify({ data: region.getProvincies() }),
   };
 };
+
+module.exports.getDistricts = async (event) => {
+  const { provinceCode } = event.pathParameters;
+  const region = new ubigeos.Province(provinceCode);
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ data: region.getDistricts() }),
+  };
+};
