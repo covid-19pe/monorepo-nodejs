@@ -1,14 +1,14 @@
 "use strict";
 
+import { saveItem, getItem } from "../database";
+
 const axios = require("axios");
 const https = require("https");
 
-module.exports.verifiedDni = async event => {
-
+export const verifiedDni = async event => {
     const payload = JSON.parse(event.body);
     const token = process.env.API_DNI_TOKEN;
     const endPointApi = process.env.API_DNI_URL;
-    ;
     const filterKeys = ["dni", "verificationCode"];
 
     let normalizeResponse = null;
@@ -20,13 +20,32 @@ module.exports.verifiedDni = async event => {
         })
     });
 
-    console.log(token);
     try {
         const { data } = await instance.get(
             `${endPointApi}/${payload.dni}?token=${token}`
         );
 
-        console.log(data)
+        console.log("Data", data);
+
+
+        const savedItem = await saveItem({
+            tableName: process.env.USER_TABLE,
+            item: { userId: payload.dni, createAt: new Date().toISOString() }
+        });
+
+        console.log('Saved Item', savedItem);
+
+        const item = await getItem({
+            tableName: process.env.USER_TABLE,
+            item: {
+                userId: payload.item
+            }
+        });
+
+        console.log('Get item', item);
+
+
+        console.log(data);
 
         normalizeResponse = {
             dni: data.dni,
@@ -34,6 +53,7 @@ module.exports.verifiedDni = async event => {
             names: data.nombres
         };
     } catch (error) {
+        console.log(error)
         return {
             statusCode: 400,
             body: JSON.stringify({

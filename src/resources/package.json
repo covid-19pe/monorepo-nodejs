@@ -8,8 +8,16 @@
         "start": "sls offline start"
     },
     "license": "MIT",
+    "devDependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.0",
+        "babel-loader": "^8.1.0",
+        "serverless-offline": "^6.1.0",
+        "serverless-webpack": "^5.3.1",
+        "webpack": "^4.42.1"
+    },
     "dependencies": {
         "axios": "^0.19.2",
-        "serverless-offline": "^6.1.0"
+        "serverless-dynamodb-local": "^0.2.39"
     }
 }
