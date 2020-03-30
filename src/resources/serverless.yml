@@ -50,13 +50,6 @@ provider:
     USER_TABLE: ${self:service}-${self:provider.stage}-user
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          path: hello
-          method: get
-
   verifiedDni:
     handler: handler.verifiedDni
     events:
