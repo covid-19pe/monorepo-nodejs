@@ -64,6 +64,27 @@ functions:
           path: verified-dni
           method: post
 
+  getDepartments:
+    handler: handler.getDepartments
+    events:
+      - http:
+          path: departments
+          method: get
+
+  getProvinces:
+    handler: handler.getProvinces
+    events:
+      - http:
+          path: provinces/{departmentCode}
+          method: get
+
+  getDistricts:
+    handler: handler.getDistricts
+    events:
+      - http:
+          path: districts/{provinceCode}
+          method: get
+
 resources:
   # Api Gateway
   - ${file(./api-gateway.yml)}
