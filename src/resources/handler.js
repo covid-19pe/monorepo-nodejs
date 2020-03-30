@@ -1,12 +1,12 @@
 'use strict';
 
-const axios = require('axios');
-const https = require('https');
-const Joi = require('@hapi/joi');
-const ubigeos = require('ubigeos');
-const regions = require('ubigeos/lib/data/regions');
+import axios from('axios');
+import https from('https');
+import Joi from('@hapi/joi');
+import ubigeos from('ubigeos');
+import regions from('ubigeos/lib/data/regions');
 
-import { saveItem, getItem } from '../database'; 
+import { saveItem, getItem } from '../database';
 
 const verifiedDniSchema = Joi.object({
   dni: Joi.string()
