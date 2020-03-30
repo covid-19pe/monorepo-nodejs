@@ -1,10 +1,10 @@
 'use strict';
 
-import axios from('axios');
-import https from('https');
-import Joi from('@hapi/joi');
-import ubigeos from('ubigeos');
-import regions from('ubigeos/lib/data/regions');
+import axios from 'axios';
+import https from 'https';
+import Joi from '@hapi/joi';
+import ubigeos from 'ubigeos';
+import regions from 'ubigeos/lib/data/regions';
 
 import { saveItem, getItem } from '../database';
 
@@ -54,21 +54,20 @@ export const verifiedDni = async (event) => {
     console.log(data);
 
     const savedItem = await saveItem({
-        tableName: process.env.USER_TABLE,
-        item: { userId: payload.dni/* , createAt: new Date().toISOString() */ }
+      tableName: process.env.USER_TABLE,
+      item: { userId: payload.dni /* , createAt: new Date().toISOString() */ },
     });
 
     console.log('Saved Item', savedItem);
 
     const item = await getItem({
-        tableName: process.env.USER_TABLE,
-        keys: {
-            userId: payload.dni
-        }
+      tableName: process.env.USER_TABLE,
+      keys: {
+        userId: payload.dni,
+      },
     });
 
     console.log('Get item', item);
-
 
     normalizeResponse = {
       dni: data.dni,
@@ -76,7 +75,7 @@ export const verifiedDni = async (event) => {
       names: data.nombres,
     };
   } catch (error) {
-      console.log(error)
+    console.log(error);
     return {
       statusCode: 400,
       body: JSON.stringify({
