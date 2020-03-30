@@ -19,7 +19,7 @@ const verifiedDniSchema = Joi.object({
     .error(new Error('Wrong verification code')),
 });
 
-module.exports.verifiedDni = async (event) => {
+export const verifiedDni = async (event) => {
   const payload = JSON.parse(event.body);
   const validation = verifiedDniSchema.validate(payload);
 
@@ -51,17 +51,19 @@ module.exports.verifiedDni = async (event) => {
   try {
     const { data } = await instance.get(`${endPointApi}/${payload.dni}?token=${token}`);
 
+    console.log(data);
+
     const savedItem = await saveItem({
         tableName: process.env.USER_TABLE,
-        item: { userId: payload.dni, createAt: new Date().toISOString() }
+        item: { userId: payload.dni/* , createAt: new Date().toISOString() */ }
     });
 
     console.log('Saved Item', savedItem);
 
     const item = await getItem({
         tableName: process.env.USER_TABLE,
-        item: {
-            userId: payload.item
+        keys: {
+            userId: payload.dni
         }
     });
 
@@ -74,6 +76,7 @@ module.exports.verifiedDni = async (event) => {
       names: data.nombres,
     };
   } catch (error) {
+      console.log(error)
     return {
       statusCode: 400,
       body: JSON.stringify({
@@ -109,7 +112,7 @@ module.exports.verifiedDni = async (event) => {
   };
 };
 
-module.exports.getDepartments = async (event) => {
+export const getDepartments = async (event) => {
   const keys = Object.keys(regions);
   let departments = [];
 
@@ -126,7 +129,7 @@ module.exports.getDepartments = async (event) => {
   };
 };
 
-module.exports.getProvinces = async (event) => {
+export const getProvinces = async (event) => {
   const { departmentCode } = event.pathParameters;
   const region = new ubigeos.Region(departmentCode);
 
@@ -136,7 +139,7 @@ module.exports.getProvinces = async (event) => {
   };
 };
 
-module.exports.getDistricts = async (event) => {
+export const getDistricts = async (event) => {
   const { provinceCode } = event.pathParameters;
   const region = new ubigeos.Province(provinceCode);
 

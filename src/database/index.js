@@ -10,8 +10,6 @@ if (process.env.STAGE === "local") {
         secretAccessKey: "DEFAULT_SECRET" // needed if you don't have aws credentials at all in env
     });
 
-    console.log('DYNAMO DB', dynamoDb)
-
 } else {
     dynamoDb = new DynamoDB.DocumentClient();
 }
@@ -32,10 +30,11 @@ export const saveItem = ({ tableName, item }) => {
 export const getItem = ({ tableName, keys }) => {
     const params = {
         TableName: tableName,
-        Key: {
-            [keyName]: keyValue
-        }
+        Key: keys
     };
+
+
+    console.log(params)
 
     return dynamoDb
         .get(params)

@@ -90,7 +90,7 @@ resources:
   - ${file(./api-gateway.yml)}
   
   # DynamoDb Tables
-  - ${file(./api-gateway.yml)}
+  - ${file(./dynamodb-tables.yml)}
 
 plugins:
   - serverless-dynamodb-local
