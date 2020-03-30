@@ -3,6 +3,7 @@
 const axios = require('axios');
 const https = require('https');
 const Joi = require('@hapi/joi');
+const ubigeos = require('ubigeos');
 const regions = require('ubigeos/lib/data/regions');
 
 const verifiedDniSchema = Joi.object({
@@ -103,5 +104,15 @@ module.exports.getDepartments = async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify({ data: departments }),
+  };
+};
+
+module.exports.getProvinces = async (event) => {
+  const { departmentCode } = event.pathParameters;
+  const region = new ubigeos.Region(departmentCode);
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ data: region.getProvincies() }),
   };
 };
