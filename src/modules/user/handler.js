@@ -22,15 +22,14 @@ export const verifiedDni = async (event) => {
   const validation = verifiedDniSchema.validate(payload);
 
   if (validation.error) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        error: {
-          code: 'ValidationError',
-          message: validation.error.message,
-        },
-      }),
-    };
+
+    return buildResponse(400, {
+      error: {
+        code: 'ValidationError',
+        message: validation.error.message,
+      },
+    });
+
   }
 
   const token = process.env.API_DNI_TOKEN;
@@ -74,15 +73,13 @@ export const verifiedDni = async (event) => {
     };
   } catch (error) {
     console.log(error);
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        error: {
-          code: 'WrongDataError',
-          message: 'Input valid dni or verification code',
-        },
-      }),
-    };
+
+    return buildResponse(400, {
+      error: {
+        code: 'WrongDataError',
+        message: 'Input valid dni or verification code',
+      },
+    });
   }
 
   filterKeys.forEach((key) => {
@@ -92,20 +89,28 @@ export const verifiedDni = async (event) => {
   });
 
   if (!success) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        error: {
-          code: 'WrongDataError',
-          message: 'Input valid dni or verification code',
-        },
-      }),
-    };
+
+
+    return buildResponse(400, {
+      error: {
+        code: 'WrongDataError',
+        message: 'Input valid dni or verification code',
+      },
+    });
+
   }
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ data: normalizeResponse }),
-  };
+  return buildResponse(200, { data: normalizeResponse });
 };
 
+
+function buildResponse(statusCode, body) {
+  return {
+    statusCode: statusCode,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": true
+    },
+    body: JSON.stringify(body)
+  };
+}
