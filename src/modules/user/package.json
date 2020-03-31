@@ -4,8 +4,10 @@
     "authors": "Yefri laura, Alexander Huayama",
     "version": "0.0.1",
     "scripts": {
-        "deploy": "serverless deploy",
-        "start": "sls offline start"
+        "deploy": "sls deploy",
+        "deploy:dev": "sls deploy --stage dev",
+        "deploy:prod": "sls deploy --stage prod",
+        "start": "sls offline start --stage local"
     },
     "license": "MIT",
     "devDependencies": {

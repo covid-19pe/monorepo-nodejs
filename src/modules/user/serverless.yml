@@ -1,6 +1,7 @@
 service: ${file(../../../serverless.yml):custom.name}-user
 
 custom:
+  name: user
   serverless-offline:
     httpPort: 5000
     lambdaPort: 5001
@@ -10,6 +11,9 @@ provider:
   runtime: nodejs12.x
   region: us-east-1
   stage: ${opt:stage, 'local'}
+  tracing:
+    lambda: true
+
   role: 
     Fn::ImportValue: covid19-resources-${self:provider.stage}-LambdaRole
 

@@ -1,6 +1,7 @@
 service: ${file(../../../serverless.yml):custom.name}-ubication
 
 custom:
+  name: ubication
   # serverless-offline:
   #   httpPort: 6000
   #   lambdaPort: 6001

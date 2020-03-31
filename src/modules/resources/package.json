@@ -1,25 +1,27 @@
 {
-    "name": "resources",
-    "description": "Resources service",
-    "authors": "Yefri laura, Alexander Huayama",
-    "version": "0.0.1",
-    "scripts": {
-        "deploy": "serverless deploy",
-        "start": "sls offline start"
-    },
-    "license": "MIT",
-    "devDependencies": {
-        "@babel/core": "^7.9.0",
-        "@babel/preset-env": "^7.9.0",
-        "babel-loader": "^8.1.0",
-        "serverless-offline": "^6.1.0",
-        "serverless-webpack": "^5.3.1",
-        "serverless-dynamodb-local": "^0.2.39",
-        "webpack": "^4.42.1"
-    },
-    "dependencies": {
-        "@hapi/joi": "^17.1.1",
-        "axios": "^0.19.2",
-        "ubigeos": "^1.0.3"
-    }
+  "name": "resources",
+  "description": "Resources service",
+  "authors": "Yefri laura, Alexander Huayama",
+  "version": "0.0.1",
+  "scripts": {
+    "deploy": "serverless deploy",
+    "deploy:dev": "serverless deploy --stage dev",
+    "deploy:prod": "serverless deploy --stage prod",
+    "start": "sls offline start"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-loader": "^8.1.0",
+    "serverless-offline": "^6.1.0",
+    "serverless-webpack": "^5.3.1",
+    "serverless-dynamodb-local": "^0.2.39",
+    "webpack": "^4.42.1"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "axios": "^0.19.2",
+    "ubigeos": "^1.0.3"
+  }
 }

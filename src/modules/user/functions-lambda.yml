@@ -2,5 +2,6 @@ verifiedDni:
   handler: handler.verifiedDni
   events:
     - http:
-        path: ${self:service}/verified-dni
+        path: ${self:custom.name}/verified-dni
         method: post
+        cors: true

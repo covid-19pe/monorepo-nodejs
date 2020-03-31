@@ -30,6 +30,11 @@ Resources:
                     - Fn::Join: [ "/", [ 
                       { "Fn::GetAtt": ["UserTable", "Arn" ] }, "index", "*" 
                     ]] 
+                - Effect: Allow
+                  Action:
+                    - xray:PutTraceSegments
+                    - xray:PutTelemetryRecords
+                  Resource: "*"
 
 Outputs:
   LambdaRole: 

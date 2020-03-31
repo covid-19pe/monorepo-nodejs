@@ -1,2 +1,9 @@
 custom:
   name: covid19
+
+lambdaPolicyXRay:
+  Effect: Allow
+  Action:
+    - xray:PutTraceSegments
+    - xray:PutTelemetryRecords
+  Resource: "*"

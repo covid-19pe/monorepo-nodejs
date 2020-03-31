@@ -4,17 +4,20 @@ getDepartments:
     - http:
         path: departments
         method: get
+        cors: true
 
 getProvinces:
   handler: handler.getProvinces
   events:
     - http:
-        path: ${self:service}/provinces/{departmentCode}
+        path: ${self:custom.name}/provinces/{departmentCode}
         method: get
+        cors: true
 
 getDistricts:
   handler: handler.getDistricts
   events:
     - http:
-        path: ${self:service}/districts/{provinceCode}
+        path: ${self:custom.name}/districts/{provinceCode}
         method: get
+        cors: true
