@@ -11,6 +11,8 @@ provider:
   runtime: nodejs12.x
   region: us-east-1
   stage: ${opt:stage, 'local'}
+  tracing:
+    lambda: true
   role: 
     Fn::ImportValue: covid19-resources-${self:provider.stage}-LambdaRole
 
