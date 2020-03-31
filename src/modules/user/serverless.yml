@@ -28,11 +28,11 @@ provider:
     # [Name of service]-[Name of stage]-[Name of table]
     # Example: resources-dev-user
     USER_TABLE: covid19-resources-${self:provider.stage}-userTable
-apiGateway:
-    restApiId:
-      Fn::ImportValue: covid19-resources-${self:provider.stage}-ApiGatewayRestApiId
-    restApiRootResourceId:
-      Fn::ImportValue: covid19-resources-${self:provider.stage}-ApiGatewayRestApiRootResourceId
+  apiGateway:
+      restApiId:
+        Fn::ImportValue: covid19-resources-${self:provider.stage}-ApiGatewayRestApiId
+      restApiRootResourceId:
+        Fn::ImportValue: covid19-resources-${self:provider.stage}-ApiGatewayRestApiRootResourceId
 
 functions:
   - ${file(./functions-lambda.yml)}

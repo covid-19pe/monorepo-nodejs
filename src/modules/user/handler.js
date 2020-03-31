@@ -108,8 +108,11 @@ function buildResponse(statusCode, body) {
   return {
     statusCode: statusCode,
     headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": true
+			"Access-Control-Allow-Origin": "*", // Required for CORS support to work
+			"Access-Control-Allow-Credentials": true, // Required for cookies,
+			"Access-Control-Allow-Headers": "*",
+			"Access-Control-Allow-Methods": "*",
+			"Content-Type": "application/json"
     },
     body: JSON.stringify(body)
   };
