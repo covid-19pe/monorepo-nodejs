@@ -1,0 +1,20 @@
+getDepartments:
+  handler: handler.getDepartments
+  events:
+    - http:
+        path: departments
+        method: get
+
+getProvinces:
+  handler: handler.getProvinces
+  events:
+    - http:
+        path: ${self:service}/provinces/{departmentCode}
+        method: get
+
+getDistricts:
+  handler: handler.getDistricts
+  events:
+    - http:
+        path: ${self:service}/districts/{provinceCode}
+        method: get

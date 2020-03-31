@@ -1,0 +1,38 @@
+service: ${file(../../../serverless.yml):custom.name}-ubication
+
+custom:
+  # serverless-offline:
+  #   httpPort: 6000
+  #   lambdaPort: 6001
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  stage: ${opt:stage, 'local'}
+  role: 
+    Fn::ImportValue: covid19-resources-${self:provider.stage}-LambdaRole
+
+  environment:
+    STAGE: ${self:provider.stage}
+
+    # Only have one key for all environments
+    API_DNI_TOKEN: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InllZnJpb3NjYXI5ODE0QGdtYWlsLmNvbSJ9.JViUp355LIb0ax7C8U-PpPkHbKFTGJ3_rcsliRDhALg
+    API_DNI_URL: https://dniruc.apisperu.com/api/v1/dni
+
+    # DynamoDB Tables
+    # [Name of service]-[Name of stage]-[Name of table]
+    # Example: resources-dev-user
+    USER_TABLE: covid19-resources-${self:provider.stage}-userTable
+  apiGateway:
+    restApiId:
+      Fn::ImportValue: covid19-resources-${self:provider.stage}-ApiGatewayRestApiId
+    restApiRootResourceId:
+      Fn::ImportValue: covid19-resources-${self:provider.stage}-ApiGatewayRestApiRootResourceId
+
+functions:
+  - ${file(./functions-lambda.yml)}
+
+plugins:
+  - serverless-webpack
+  - serverless-offline

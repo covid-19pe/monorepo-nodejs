@@ -1,0 +1,54 @@
+
+service: covid19-resources
+
+custom:
+  name: covid19-resources
+  stage: ${opt:stage, self:provider.stage}
+  prefix: ${self:custom.name}-${self:custom.stage}
+  resourcesStages:
+    local: local
+    dev: dev
+    # test: dev For future
+    prod: prod
+  # resourcesStage: ${self:custom.resourcesStages.${self:custom.stage}, self:custom.resourcesStages.dev}
+  tables:
+    user: ${self:custom.prefix}-userTable
+
+
+  # serverless-offline:
+  #   httpPort: 4000
+  #   lambdaPort: 4002
+    
+  # Only For Local
+  dynamodb:
+    stages:
+      - local
+    start:
+      port: 4001
+      migrate: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  stage: ${opt:stage, 'local'}
+  environment:
+    STAGE: ${self:provider.stage}
+    # DynamoDB Tables
+    # [Name of service]-[Name of stage]-[Name of table]
+    # Example: resources-dev-user
+    USER_TABLE: ${self:custom.tables.user}
+
+resources:
+  # Api Gateway
+  - ${file(./api-gateway.yml)}
+  
+  # DynamoDb Tables
+  - ${file(./dynamodb-tables.yml)}
+
+  # Rol for lambda
+  - ${file(./lambda-role.yml)}
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline

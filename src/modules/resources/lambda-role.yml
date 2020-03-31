@@ -1,0 +1,39 @@
+Resources:
+    LambdaRole:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: /
+        RoleName: ${self:custom.prefix}-lambda-role
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: ${self:custom.prefix}-lambda-role
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - dynamodb:Query
+                    - dynamodb:Scan
+                    - dynamodb:GetItem
+                    - dynamodb:PutItem
+                    - dynamodb:UpdateItem
+                    - dynamodb:DeleteItem
+                  Resource:
+                    - Fn::GetAtt: [UserTable, Arn]
+                    - Fn::Join: [ "/", [ 
+                      { "Fn::GetAtt": ["UserTable", "Arn" ] }, "index", "*" 
+                    ]] 
+
+Outputs:
+  LambdaRole: 
+    Value:
+      Fn::GetAtt: [LambdaRole, Arn]
+    Export:
+      Name: ${self:custom.prefix}-LambdaRole

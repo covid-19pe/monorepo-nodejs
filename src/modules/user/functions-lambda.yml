@@ -1,0 +1,6 @@
+verifiedDni:
+  handler: handler.verifiedDni
+  events:
+    - http:
+        path: ${self:service}/verified-dni
+        method: post

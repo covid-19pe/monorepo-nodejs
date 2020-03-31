@@ -1,15 +1,15 @@
 Resources:
   ApiGatewayRestApi:
-    Type: AWS::ApiGateway::RestApiId
+    Type: AWS::ApiGateway::RestApi
     Properties:
-      Name: ${file(../../package.json):name}-${self:provider.stage}-ApiGatewayRestApi
+      Name: ${self:custom.prefix}-ApiGatewayRestApi
 
 Outputs:
   ApiGatewayRestApiId:
     Value:
       Ref: ApiGatewayRestApi
     Export:
-      Name: ApiGatewayRestApi
+      Name: ${self:custom.prefix}-ApiGatewayRestApiId
 
   ApiGatewayRestApiRootResourceId:
     Value:
@@ -17,4 +17,4 @@ Outputs:
         - ApiGatewayRestApi
         - RootResourceId
     Export:
-      Name: ApiGatewayRestApiRootResourceId
+      Name: ${self:custom.prefix}-ApiGatewayRestApiRootResourceId

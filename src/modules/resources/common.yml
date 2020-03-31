@@ -1,0 +1,20 @@
+custom:
+  name: covid19-resources
+  stage: ${opt:stage, self:provider.stage}
+  prefix: ${self:custom.name}-${self:custom.stage}
+  resourcesStages:
+    local: local
+    dev: dev
+    # test: dev For future
+    prod: prod
+  # resourcesStage: ${self:custom.resourcesStages.${self:custom.stage}, self:custom.resourcesStages.dev}
+  tables:
+    user: ${self:custom.prefix}-userTable
+
+  # Only For Local
+  dynamodb:
+    stages:
+      - local
+    start:
+      port: 4001
+      migrate: true
